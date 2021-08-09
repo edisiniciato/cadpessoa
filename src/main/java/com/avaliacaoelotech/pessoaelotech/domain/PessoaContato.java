@@ -2,6 +2,7 @@ package com.avaliacaoelotech.pessoaelotech.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -10,11 +11,12 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "PESSOACONTATO")
+@EqualsAndHashCode(of = "id")
 public class PessoaContato implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
     @JsonIgnore

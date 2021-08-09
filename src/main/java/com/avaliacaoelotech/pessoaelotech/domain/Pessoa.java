@@ -1,5 +1,7 @@
 package com.avaliacaoelotech.pessoaelotech.domain;
 
+import lombok.EqualsAndHashCode;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -8,12 +10,12 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
+@EqualsAndHashCode(of = "id")
 public class Pessoa implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
     @NotNull(message = "O campo nome deve ser informado.")

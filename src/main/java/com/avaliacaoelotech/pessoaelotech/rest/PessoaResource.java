@@ -1,6 +1,7 @@
 package com.avaliacaoelotech.pessoaelotech.rest;
 
 import com.avaliacaoelotech.pessoaelotech.domain.Pessoa;
+import com.avaliacaoelotech.pessoaelotech.domain.PessoaContato;
 import com.avaliacaoelotech.pessoaelotech.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,24 @@ public class PessoaResource {
         try {
             return ResponseEntity.ok(pessoaService.save(pessoa));
         } catch (Exception e) {
-            e.printStackTrace();
+            return ResponseEntity.badRequest().header("Erro ao salvar pessoa " + e.getMessage()).body(null);
+        }
+    }
+
+    @PostMapping("{idPessoa}/contatos")
+    public ResponseEntity<PessoaContato> saveContato(@RequestBody PessoaContato pessoaContato, @PathVariable Long idPessoa) {
+        try {
+            return ResponseEntity.ok(pessoaService.addContato(pessoaContato, idPessoa));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().header("Erro ao salvar pessoa " + e.getMessage()).body(null);
+        }
+    }
+
+    @PutMapping("{idPessoa}/contatos/{idContato}")
+    public ResponseEntity<PessoaContato> updateContato(@RequestBody PessoaContato pessoaContato, @PathVariable Long idPessoa, @PathVariable Long idContato) {
+        try {
+            return ResponseEntity.ok(pessoaService.updateContato(pessoaContato, idPessoa, idContato));
+        } catch (Exception e) {
             return ResponseEntity.badRequest().header("Erro ao salvar pessoa " + e.getMessage()).body(null);
         }
     }
@@ -28,7 +46,6 @@ public class PessoaResource {
     @PutMapping(value = "/{id}")
     public ResponseEntity<Pessoa> update(@RequestBody Pessoa pessoa, @PathVariable Long id) {
         try {
-            System.out.println("ID DO PUT " + id);
             return ResponseEntity.ok(pessoaService.update(pessoa, id));
         } catch (Exception e) {
             return ResponseEntity.badRequest().header("Erro ao editar pessoa " + e.getMessage()).body(null);
@@ -38,7 +55,6 @@ public class PessoaResource {
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Pessoa> delete(@PathVariable Long id) {
         try {
-            System.out.println("ID DO DELETE " + id);
             pessoaService.delete(id);
             return ResponseEntity.noContent().build();
         } catch (Exception e) {
