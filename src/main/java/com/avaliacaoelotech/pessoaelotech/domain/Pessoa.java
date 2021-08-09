@@ -3,7 +3,9 @@ package com.avaliacaoelotech.pessoaelotech.domain;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Pessoa implements Serializable {
@@ -24,18 +26,18 @@ public class Pessoa implements Serializable {
     @Column(name = "DATANASCIMENTO")
     private Date dataNascimento;
 
-//    @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<PessoaContato> contatos;
+    @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PessoaContato> contatos;
 
     public Pessoa() {
-//        contatos = new ArrayList<>();
+        contatos = new ArrayList<>();
     }
 
     public Pessoa(String nome, String cpf, Date dataNascimento) {
         this.nome = nome;
         this.cpf = cpf;
         this.dataNascimento = dataNascimento;
-//        this.contatos = new ArrayList<>();
+        this.contatos = new ArrayList<>();
     }
 
     public Long getId() {
@@ -70,4 +72,11 @@ public class Pessoa implements Serializable {
         this.dataNascimento = dataNascimento;
     }
 
+    public List<PessoaContato> getContatos() {
+        return contatos;
+    }
+
+    public void setContatos(List<PessoaContato> contatos) {
+        this.contatos = contatos;
+    }
 }

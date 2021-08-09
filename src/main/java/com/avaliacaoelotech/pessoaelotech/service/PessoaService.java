@@ -36,7 +36,7 @@ public class PessoaService implements Serializable {
         find.setNome(pessoa.getNome());
         find.setCpf(pessoa.getCpf());
         find.setDataNascimento(pessoa.getDataNascimento());
-//        find.setContatos(pessoa.getContatos());
+        find.setContatos(pessoa.getContatos());
         return repository.save(find);
     }
 
@@ -45,11 +45,11 @@ public class PessoaService implements Serializable {
     }
 
     private void validarSave(Pessoa pessoa) {
-//        if (pessoa.getDataNascimento().after(new Date())){
-//            throw new RuntimeException("A data de nascimento não pode ser uma data futura.");
-//        }
-//        if (pessoa.getContatos() == null || pessoa.getContatos().isEmpty()) {
-//            throw new RuntimeException("A pessoa deve possui ao menos um contato.");
-//        }
+        if (pessoa.getDataNascimento().after(new Date())) {
+            throw new RuntimeException("A data de nascimento não pode ser uma data futura.");
+        }
+        if (pessoa.getContatos() == null || pessoa.getContatos().isEmpty()) {
+            throw new RuntimeException("A pessoa deve possui ao menos um contato.");
+        }
     }
 }
