@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet id="001" author="edi">
+        <createTable tableName="PESSOA">
+            <column name="ID" type="NUMBER(19,0)">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="PK_PESSOA"/>
+            </column>
+            <column name="NOME" type="VARCHAR(255)"/>
+            <column name="CPF" type="VARCHAR(20)"/>
+            <column name="DATANASCIMENTO" type="DATE"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="002" author="edi">
+        <createTable tableName="PESSOACONTATO">
+            <column name="ID" type="NUMBER(19,0)">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="PK_PESSOACONTATO"/>
+            </column>
+            <column name="PESSOA_ID" type="NUMBER(19,0)"/>
+            <column name="NOME" type="VARCHAR(255)"/>
+            <column name="TELEFONE" type="VARCHAR(20)"/>
+            <column name="EMAIL" type="VARCHAR(70)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="003" author="edi">
+        <addForeignKeyConstraint baseTableName="PESSOACONTATO"
+                                 baseColumnNames="PESSOA_ID"
+                                 constraintName="FK_PESSOACONTATO_PESSOA"
+                                 referencedTableName="PESSOA"
+                                 referencedColumnNames="ID"/>
+    </changeSet>
+    <changeSet id="004" author="edi">
+        <createIndex tableName="PESSOACONTATO" indexName="IDX_PESSOACONTATO_PESSOA">
+            <column name="PESSOA_ID"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>
+
